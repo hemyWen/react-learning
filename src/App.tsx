@@ -1,9 +1,10 @@
-import { Button } from "antd";
+import { BrowserRouter } from "react-router-dom";
+import Router from "@/routers/index";
 function App() {
   return (
-    <div className="App">
-      <Button type="primary">Button</Button>
-    </div>
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   );
 }
 export default App;
