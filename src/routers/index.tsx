@@ -4,6 +4,7 @@ import LayoutIndex from "@/layouts";
 import ErrorPage from "@/pages/ErrorPage";
 import Test from "@/pages/Test";
 import { useRoutes } from "react-router-dom";
+import RenderOptimize from "@/pages/RenderOptimize";
 export const routes: RouteObject[] = [
   {
     path: "/",
@@ -18,10 +19,17 @@ export const routes: RouteObject[] = [
         },
       },
       {
-        path: "测试",
+        path: "test",
         element: <Test />,
         meta: {
           title: "测试",
+        },
+      },
+      {
+        path: "render-optimize",
+        element: <RenderOptimize />,
+        meta: {
+          title: "渲染优化",
         },
       },
     ],
