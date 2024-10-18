@@ -1,16 +1,23 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
-import ReactDOM from "react-dom";
-import Child from "./Child";
-const Test = () => {
-  const [value, setValue] = useState(0);
+import React from "react";
+
+export default class App extends React.Component {
+  state = { name: "App" };
+  render() {
+    return (
+      <div className="App">
+        <Foo />
+        <button onClick={() => this.setState({ name: "App" })}>Change name</button>
+      </div>
+    );
+  }
+}
+
+function Foo() {
+  console.log("Foo render");
 
   return (
-    <>
-      <button onClick={() => setValue(value + 1)}>+</button>
-      {value}
-      <Child name="child" />
-    </>
+    <div>
+      <h1> Foo </h1>
+    </div>
   );
-};
-
-export default Test;
+}

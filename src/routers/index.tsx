@@ -5,6 +5,7 @@ import ErrorPage from "@/pages/ErrorPage";
 import Test from "@/pages/Test";
 import { useRoutes } from "react-router-dom";
 import RenderOptimize from "@/pages/RenderOptimize";
+import ReduxPage from "@/pages/ReduxPage";
 export const routes: RouteObject[] = [
   {
     path: "/",
@@ -30,6 +31,13 @@ export const routes: RouteObject[] = [
         element: <RenderOptimize />,
         meta: {
           title: "渲染优化",
+        },
+      },
+      {
+        path: "redux",
+        element: <ReduxPage />,
+        meta: {
+          title: "Redux",
         },
       },
     ],

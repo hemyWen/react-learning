@@ -44,7 +44,7 @@ export default function LayoutIndex() {
         <Menu theme="dark" mode="inline" items={menuList} onClick={clickMenu} />
       </Sider>
       <Layout style={{ marginInlineStart: 200, backgroundColor: "#fff" }}>
-        <Content>
+        <Content style={{ fontSize: "16px" }}>
           <Outlet></Outlet>
         </Content>
       </Layout>
