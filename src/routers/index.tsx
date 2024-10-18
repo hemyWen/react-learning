@@ -6,6 +6,7 @@ import Test from "@/pages/Test";
 import { useRoutes } from "react-router-dom";
 import RenderOptimize from "@/pages/RenderOptimize";
 import ReduxPage from "@/pages/ReduxPage";
+import ControllOrNot from "@/pages/ControllOrNot";
 export const routes: RouteObject[] = [
   {
     path: "/",
@@ -38,6 +39,13 @@ export const routes: RouteObject[] = [
         element: <ReduxPage />,
         meta: {
           title: "Redux",
+        },
+      },
+      {
+        path: "controllOrNot",
+        element: <ControllOrNot />,
+        meta: {
+          title: "受控/非受控",
         },
       },
     ],
