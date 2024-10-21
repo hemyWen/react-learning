@@ -7,6 +7,8 @@ import { useRoutes } from "react-router-dom";
 import RenderOptimize from "@/pages/RenderOptimize";
 import ReduxPage from "@/pages/ReduxPage";
 import ControllOrNot from "@/pages/ControllOrNot";
+import ErrorBoundaryPage from "@/pages/ErrorBoundary";
+import EventPage from "@/pages/EventPage";
 export const routes: RouteObject[] = [
   {
     path: "/",
@@ -46,6 +48,20 @@ export const routes: RouteObject[] = [
         element: <ControllOrNot />,
         meta: {
           title: "受控/非受控",
+        },
+      },
+      {
+        path: "errorBoundary",
+        element: <ErrorBoundaryPage />,
+        meta: {
+          title: "错误边界",
+        },
+      },
+      {
+        path: "eventPage",
+        element: <EventPage />,
+        meta: {
+          title: "事件机制",
         },
       },
     ],
