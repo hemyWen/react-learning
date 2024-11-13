@@ -1,23 +1,27 @@
-import React from "react";
+import React, { useRef, useEffect, useLayoutEffect } from "react";
+import "./style.css";
+export default function Test() {
+  let ball1 = useRef(null);
+  let ball2 = useRef(null);
 
-export default class App extends React.Component {
-  state = { name: "App" };
-  render() {
-    return (
-      <div className="App">
-        <Foo />
-        <button onClick={() => this.setState({ name: "App" })}>Change name</button>
-      </div>
-    );
-  }
-}
+  useEffect(() => {
+    if (ball1.current) {
+      ball1.current.style.left = `200px`;
+    }
+  }, []);
 
-function Foo() {
-  console.log("Foo render");
+  useLayoutEffect(() => {
+    if (ball2.current) {
+      ball2.current.style.left = `200px`;
+    }
+  }, []);
 
   return (
-    <div>
-      <h1> Foo </h1>
-    </div>
+    <>
+      <h1>useEffect</h1>
+      <div className="ball1" ref={ball1}></div>
+      <h1>useLayoutEffect</h1>
+      <div className="ball2" ref={ball2}></div>
+    </>
   );
 }

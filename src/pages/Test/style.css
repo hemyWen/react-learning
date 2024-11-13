@@ -1,0 +1,13 @@
+.ball1,
+.ball2 {
+  width: 100px;
+  height: 100px;
+  box-sizing: border-box;
+  background-color: cornflowerblue;
+  transition: left 10s;
+  position: relative;
+  left: 0;
+}
+.ball1 {
+  background-color: green;
+}
