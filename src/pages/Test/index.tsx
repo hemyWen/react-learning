@@ -1,27 +1,27 @@
-import React, { useRef, useEffect, useLayoutEffect } from "react";
-import "./style.css";
-export default function Test() {
-  let ball1 = useRef(null);
-  let ball2 = useRef(null);
-
-  useEffect(() => {
-    if (ball1.current) {
-      ball1.current.style.left = `200px`;
-    }
-  }, []);
-
-  useLayoutEffect(() => {
-    if (ball2.current) {
-      ball2.current.style.left = `200px`;
-    }
-  }, []);
-
+import React, { useCallback, useState } from "react";
+// 子组件
+function Childs(props) {
+  console.log("子组件渲染了");
   return (
     <>
-      <h1>useEffect</h1>
-      <div className="ball1" ref={ball1}></div>
-      <h1>useLayoutEffect</h1>
-      <div className="ball2" ref={ball2}></div>
+      <button onClick={props.onClick}>改标题</button>
+      <h1>{props.name}</h1>
     </>
+  );
+}
+const Child = React.memo(Childs);
+export default function Test() {
+  const [title, setTitle] = useState("这是一个 title");
+  const [subtitle, setSubtitle] = useState("我是一个副标题");
+  const callback = useCallback(() => {
+    setTitle("标题改变了");
+  }, []);
+  return (
+    <div className="App">
+      <h1>{title}</h1>
+      <h2>{subtitle}</h2>
+      <button onClick={() => setSubtitle("副标题改变了")}>改副标题</button>
+      <Child onClick={callback} name="桃桃" />
+    </div>
   );
 }
