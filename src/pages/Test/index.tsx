@@ -1,27 +1,73 @@
-import React, { useCallback, useState } from "react";
-// 子组件
-function Childs(props) {
-  console.log("子组件渲染了");
+import React, { useEffect, useState } from "react";
+import { DndContext, DragOverlay, useDraggable, useDroppable } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
+
+const Button = ({ id }) => {
+  const { attributes, listeners, setNodeRef, transform, transition } = useDraggable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   return (
-    <>
-      <button onClick={props.onClick}>改标题</button>
-      <h1>{props.name}</h1>
-    </>
+    <button ref={setNodeRef} style={style} {...attributes} {...listeners}>
+      Button {id}
+    </button>
   );
-}
-const Child = React.memo(Childs);
-export default function Test() {
-  const [title, setTitle] = useState("这是一个 title");
-  const [subtitle, setSubtitle] = useState("我是一个副标题");
-  const callback = useCallback(() => {
-    setTitle("标题改变了");
-  }, []);
+};
+
+const DropArea = () => {
+  const { attributes, listeners, setNodeRef } = useDroppable({
+    id: "drop-area",
+  });
+
   return (
-    <div className="App">
-      <h1>{title}</h1>
-      <h2>{subtitle}</h2>
-      <button onClick={() => setSubtitle("副标题改变了")}>改副标题</button>
-      <Child onClick={callback} name="桃桃" />
+    <div
+      ref={setNodeRef}
+      style={{ width: "100%", height: "300px", border: "1px solid black" }}
+      {...attributes}
+      {...listeners}
+    >
+      Drop Area
     </div>
   );
-}
+};
+
+const Test = () => {
+  const [buttonPositions, setButtonPositions] = useState({});
+
+  useEffect(() => {
+    // 从本地存储加载位置
+    const savedPositions = localStorage.getItem("buttonPositions");
+    if (savedPositions) {
+      setButtonPositions(JSON.parse(savedPositions));
+    }
+  }, []);
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    if (over && over.id === "drop-area") {
+      const { id, transform } = active;
+      const newPositions = {
+        ...buttonPositions,
+        [id]: transform,
+      };
+      setButtonPositions(newPositions);
+      // 保存位置到本地存储
+      localStorage.setItem("buttonPositions", JSON.stringify(newPositions));
+    }
+  };
+
+  return (
+    <DndContext onDragEnd={handleDragEnd}>
+      <DropArea />
+      {[1, 2, 3].map((id) => (
+        <Button key={id} id={id} initialTransform={buttonPositions[id]} />
+      ))}
+      <DragOverlay />
+    </DndContext>
+  );
+};
+
+export default Test;
